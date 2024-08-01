@@ -1,11 +1,8 @@
 const express = require("express");
 
 const app = express();
+const eventRoutes = require("./api/routes/events");
 
-app.use((req, res, nex) => {
-  res.status(200).json({
-    message: "Hello",
-  });
-});
+app.use("/events", eventRoutes);
 
 module.exports = app;
