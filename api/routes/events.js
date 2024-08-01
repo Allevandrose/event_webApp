@@ -14,15 +14,34 @@ router.post("/", (req, res, next) => {
   });
 });
 
-router.patch("/", (req, res, next) => {
+router.get("/:eventId", (req, res, next) => {
+  const id = req.params.eventId;
+  if (id === "special") {
+    res.status(200).json({
+      message: "This is a special Event",
+      id: id,
+    });
+  } else {
+    res.status(200).json({
+      message: "You Got an ID",
+      id: id,
+    });
+  }
+});
+
+router.patch("/:eventId", (req, res, next) => {
+  const id = req.params.eventId;
   res.status(200).json({
-    Message: "Handling a PATCH request for Events",
+    Message: "Event Updated Successfully!!",
+    id: id,
   });
 });
 
-router.delete("/", (req, res, next) => {
+router.delete("/:eventId", (req, res, next) => {
+  const id = req.params.eventId;
   res.status(200).json({
-    Message: "Handling a DELETE request for Events",
+    Message: "Event Deleted successfully!!!",
+    id: id,
   });
 });
 
