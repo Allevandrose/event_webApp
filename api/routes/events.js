@@ -23,7 +23,7 @@ router.get("/:eventId", (req, res, next) => {
     });
   } else {
     res.status(200).json({
-      message: "You Got an ID",
+      message: "You Got an event ID",
       id: id,
     });
   }
