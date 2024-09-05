@@ -15,11 +15,23 @@ exports.getAllEvents = async (req, res, next) => {
 exports.createEvent = async (req, res, next) => {
   const { name, description, place, price } = req.body;
 
+  // Validate required fields
+  if (!name || !description || !place || !price) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  // Extract image paths from the uploaded files
+  const images = req.files.map(
+    (file) =>
+      req.protocol + "://" + req.get("host") + "/uploads/" + file.filename
+  );
+
   const event = new Event({
-    name: name,
-    description: description,
-    place: place,
-    price: price,
+    name,
+    description,
+    place,
+    price,
+    images, // Store image paths
   });
 
   try {
@@ -29,8 +41,7 @@ exports.createEvent = async (req, res, next) => {
       createdEvent: savedEvent,
     });
   } catch (error) {
+    res.status(500).json({ message: "Internal server error." });
     next(error);
   }
 };
-
-// Additional methods for fetching, updating, and deleting events go here
